@@ -1,13 +1,341 @@
-body {
+* {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  box-sizing: border-box;
+
+  /*For Debugging*/
+  /*border: 1px solid red;*/
+}
+body,
+html {
+  width: 100%;
+  height: 100%;
+  background: #000;
+}
+#root {
+  width: 100%;
+  height: 100%;
+}
+.wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  align-items: center;
+}
+.game {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 0.75rem;
+}
+.box {
+  height: 5rem;
+  width: 5rem;
+  border-radius: 0.6rem;
+  border: 1px solid white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all ease-in-out 0.25s;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.box p {
+  color: black;
+  font-size: 5rem;
+  font-weight: bold;
+}
+#reset {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  position: absolute;
+  bottom: 5rem;
+  user-select: none;
+  width: 5rem;
+  padding: 0.6rem;
+  background: white;
+  transition: all ease 0.2s;
+  border-radius: 2.6rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+  font-family: Sans-Serif;
+  z-index: 999999999999999;
+}
+#reset:active {
+  opacity: 0.8;
+  scale: 0.95;
+}
+#popup {
+  color: white;
+  position: absolute;
+  top: 4rem;
+  width: 60%;
+  font-family: Monospace;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  animation: fade ease 4s forwards;
+}
+#popup p {
+  color: white;
+  font-size: 5rem;
+  font-family: Monospace;
+}
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.fullScr {
+  position: absolute;
+  z-index: 999999999999999;
+  top: 0.5rem;
+  right: 1.3rem;
+  font-size: 2.1rem;
+  color: white;
+  transform: rotate(0deg);
+  color: grey;
+  transition: all 0.2s;
+}
+.fullScr:active {
+  scale: 0.85;
+  color: white;
+}
+
+.roomContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+.title {
+  font-family: Segoe UI;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  margin: 3rem;
+}
+.roomBody {
+  display: flex;
+  width: 100%;
+  
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+.createRoom,
+.joinRoom {
+  height: 3rem;
+  width: 8rem;
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2rem;
+  transition: all ease 0.3s;
+}
+.createRoom,
+.joinRoom {
+  height: 3rem;
+  width: 8rem;
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2rem;
+  transition: all ease 0.3s;
+}
+#roomId {
+  color: deeppink;
+  opacity: 0.95;
+}
+.createRoom p,
+.joinRoom p {
+  font-family:Monospace;
+  font-weight: 650;
+  user-select: none;
+  font-size: 0.896rem;
+}
+
+.ai{
+ /* position: absolute;
+  bottom: 0.6rem;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 3rem;
+  width: 3rem;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.72);
+  transition: all ease 0.2s;
+  user-select: none;
+}
+.ai p{
+  color: black;
+  font-weight:bold;
+  font-size: 2.5rem;
+}
+.ai:active{
+  opacity: 0.8;
+  scale: 0.93;
+}
+
+.createRoom:active,
+.joinRoom:active,
+.joinBtn:active {
+  scale: 0.967;
+  opacity: 0.86;
+}
+.startBtn:active{
+  scale: 0.967;
+  opacity: 0.86;
+  filter: invert(1);
+}
+.createRoomDetails {
+  margin-block: 3rem;
+  /*border: 1px solid white;*/
+}
+.createRoomDetails h3,
+.createRoomDetails p {
+  margin: 0.5rem;
+  color: white;
+  font-family: Monospace;
+  word-wrap: break-word;
+  font-size: 1rem;
+}
+.joinRoomDetails {
+  margin-block: 3rem;
+}
+.joinRoomDetails h3,
+.joinRoomDetails div {
+  margin: 0.5rem;
+  font-family: Monospace;
+  word-wrap: break-word;
+  color: white;
+}
+.joinRoomDetails div {
+  font-size: 1rem;
+  padding: 0.7rem;
+  color: black;
+  background: white;
+  border-radius: 0.6rem;
+}
+.createRoomDetails small {
+  color: skyblue;
+  margin: 0.5rem;
+  font-family: Monospace;
+  font-size: 0.6rem;
+}
+[contenteditable] {
+  outline: 0px solid transparent;
+}
+.joinBtn {
+  background: white;
+  border-radius: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all ease 0.3s;
+  user-select: none;
+}
+.startBtn {
+  padding: 0.2rem;
+  width: 25%;
+  margin: 0.5rem;
+  background: black;
+  outline: 1px solid white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.5rem;
+  transition: all ease 0.3s;
+  user-select: none;
+  margin-top: 1rem;
+}
+.joinBtn p {
+  font-family: Monospace;
+  font-size: 1rem;
+  font-weight: bold;
+  color: black;
+}
+.startBtn p{
+  font-family: Monospace;
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+}
+.backBtn {
+  position: absolute;
+  z-index: 999999999999999;
+  top: 0.5rem;
+  left: 1.3rem;
+  font-size: 2.2rem;
+  color: grey;
+  font-weight: bold;
+  transform: rotate(0deg);
+  transition: all 0.2s;
+  user-select: none;
+}
+.backBtn:active {
+  scale: 0.95;
+  color: white;
+}
+
+.spinnerContainer {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 99999;
+}
+.spinner {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 4px solid white;
+  border-top-color: transparent;
+  transition: all ease 1s;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.layer{
+ height: 100vh;
+ width: 100vw;
+ position: absolute;
+ top: 0;
+ left: 0;
+ background-color: transparent;
+ z-index: 99999999;
 }
